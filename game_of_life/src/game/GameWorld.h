@@ -29,6 +29,8 @@ public:
 	void popCeil(glm::ivec2 pos);
 	bool checkCeil(glm::ivec2 pos);
 	void loadWorld(const std::vector<glm::ivec2>& world);
+	void saveWorld();
+
 };
 
 glm::ivec2 interpolite_mouse_pos(float x, float y);

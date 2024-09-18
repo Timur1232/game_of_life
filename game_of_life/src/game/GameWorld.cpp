@@ -157,6 +157,20 @@ void GameWorld::loadWorld(const std::vector<glm::ivec2>& world)
 	m_aliveCeils = world.size();
 }
 
+void GameWorld::saveWorld()
+{
+	std::vector<glm::ivec2> w;
+	for (int i = 0; i < WORLD_SIZE; i++) {
+		if (m_world[i]) {
+			w.push_back({ i % WORLD_WIDTH + 1, i / WORLD_WIDTH + 1 });
+		}
+	}
+	std::cout << "const std::vector<glm::ivec2> name = { ";
+	for (glm::ivec2& v : w)
+		std::cout << "{ " << v.x << ", " << v.y << " }, ";
+	std::cout << "};\n";
+}
+
 glm::ivec2 interpolite_mouse_pos(float x, float y)
 {
 	int new_x = WORLD_WIDTH * (x / SCREEN_WIDTH) + 1;

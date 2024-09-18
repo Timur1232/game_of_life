@@ -7,9 +7,9 @@ class Window
 {
 private:
 
-	static GLFWwindow* s_window;
 
 public:
+	static GLFWwindow* s_window;
 
 	friend Events;
 

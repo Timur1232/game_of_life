@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -16,11 +17,8 @@
 #include "config.h"
 #include "game/StartConfig.h"
 
-/*GLfloat vert1[] = {
-		-1, 0.96, -0.96, 0.96, -0.96, 0.92, -1, 0.92, -0.96, 0.96, -0.92, 0.96, -0.92, 0.92, -0.96, 0.92, -0.92, 0.96, -0.88, 0.96, -0.88, 0.92, -0.92, 0.92
-};
 
-GLuint indices[] = {
+/*GLuint indices[] = {
 		0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11
 };
 
@@ -62,12 +60,19 @@ int main()
 	// Основной объект игрового поля
 	GameWorld game;
 
+	// Цвет фона
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	bool pause = true;
 
+	auto start = std::chrono::system_clock::now();
+	auto end = std::chrono::system_clock::now();
+
 	// Основной цикл
 	while (!Window::isShouldClose()) {
+
+		start = std::chrono::system_clock::now();
+
 		Events::pullIvents();
 
 		// Обработка событий (нажатий клавиш и мыши)
@@ -90,6 +95,30 @@ int main()
 			if (Events::keyJPressed(GLFW_KEY_2)) {
 				game.loadWorld(rifle);
 			}
+			if (Events::keyJPressed(GLFW_KEY_3)) {
+				game.loadWorld(star);
+			}
+			if (Events::keyJPressed(GLFW_KEY_4)) {
+				game.loadWorld(pong);
+			}
+			if (Events::keyJPressed(GLFW_KEY_5)) {
+				game.loadWorld(pulse);
+			}
+			if (Events::keyJPressed(GLFW_KEY_6)) {
+				game.loadWorld(rod);
+			}
+			if (Events::keyJPressed(GLFW_KEY_7)) {
+				game.loadWorld(core);
+			}
+			if (Events::keyJPressed(GLFW_KEY_8)) {
+				game.loadWorld(space_ship);
+			}
+			if (Events::keyJPressed(GLFW_KEY_N)) {
+				game.applyRules();
+			}
+			if (Events::keyJPressed(GLFW_KEY_S)) {
+				game.saveWorld();
+			}
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -102,6 +131,14 @@ int main()
 			game.applyRules();
 
 		Window::swapBuffers();
+
+		end = std::chrono::system_clock::now();
+
+		std::chrono::duration<double> duration = end - start;
+		double fps = 1 / duration.count();
+		std::string stringFPS = std::to_string(fps);
+		glfwSetWindowTitle(Window::s_window, stringFPS.c_str());
+		// std::cout << fps << std::endl;
 	}
 
 	Renderer::terminate();
